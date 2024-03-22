@@ -1,0 +1,17 @@
+Rock Papper Scissors
+
+The Problem: 
+Write a program that allows the user to enter a case-insensitive RPS option (e.g. "Rock"), 
+randomly generate a computer oppoisition response and print for the user the outcome - 
+i.e. whether they won or lost.
+Play five rounds of the game and keep score - reporting a winner or loser at the end.
+
+Pseudocode:
+Ask user to input their move
+Check that move is valid
+If the move is valid, store it
+generate random computer response, store it
+If the user wins print "You Win! x beats y"
+If the user loses print "You Lose! y beats x"
+If it is a tie print "It's a tie!"
+
