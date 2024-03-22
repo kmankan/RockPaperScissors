@@ -1,4 +1,4 @@
-Rock Papper Scissors
+Rock Paper Scissors
 
 The Problem: 
 Write a program that allows the user to enter a case-insensitive RPS option (e.g. "Rock"), 

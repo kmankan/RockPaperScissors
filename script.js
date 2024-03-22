@@ -1,20 +1,20 @@
 // function that prompts the user for a move selection and checks whether its a valid move.
 function getPlayerChoice() {
   while (true) {
-  let userInput = prompt("Choose your move! <| Rock | Papper | Scissors |> what'll it be?");
-  userInput = userInput.toLowerCase();
-  
-  if (userInput === null) {
-    console.log("User cancelled the prompt.");
-    return null;
-  }
-
-  if (userInput !== "rock" && userInput !== "papper" && userInput !== "scissors") {
-    console.log("illegal move! please choose from one of the three");
-  } else {
-      console.log(userInput)
-      return userInput
+    let userInput = prompt("Choose your move! <| Rock | Paper | Scissors |> what'll it be?");
+    userInput = userInput.toLowerCase();
+    
+    if (userInput === null) {
+      console.log("User cancelled the prompt.");
+      return null;
     }
+
+    if (userInput !== "rock" && userInput !== "paper" && userInput !== "scissors") {
+      console.log("illegal move! please choose from one of the three");
+    } else {
+        console.log(userInput)
+        return userInput
+      }
   }
 }
 
@@ -52,15 +52,15 @@ function createScoreCounter() { // the robot helped me write this code
   };
 }
 
-/* a function called getComputerChoice that will randomly return either ‘Rock’, ‘Papper’ or ‘Scissors’. 
+/* a function called getComputerChoice that will randomly return either ‘Rock’, ‘paper’ or ‘Scissors’. 
 We’ll use this function in the game to make the computer’s play. */
 function getComputerChoice() {
-  const options = ["Rock", "Papper", "Scissors"];
+  const options = ["Rock", "Paper", "Scissors"];
   const computerSelection = Math.floor(Math.random() * options.length);
   return options[computerSelection].toLowerCase();
 }
 
-/* a function that plays a single round of Rock Papper Scissors. 
+/* a function that plays a single round of Rock paper Scissors. 
 The function should take two parameters - the playerSelection and computerSelection - 
 and then return a string that declares the winner or tie of the round */
 
@@ -69,7 +69,7 @@ function playRound(playerChoice, computerChoice, scoreCounter) {
     scoreCounter.incrementPlayerWins();
     return `You win! ${playerChoice} beats ${computerChoice}`;
   } 
-  else if (playerChoice === "rock" && computerChoice === "papper") {
+  else if (playerChoice === "rock" && computerChoice === "paper") {
     scoreCounter.incrementComputerWins();
     return `You lose! ${computerChoice} beats ${playerChoice}`;
   }
@@ -81,7 +81,7 @@ function playRound(playerChoice, computerChoice, scoreCounter) {
     scoreCounter.incrementPlayerWins();
     return `You win! ${playerChoice} beats ${computerChoice}`;
   } 
-  else if (playerChoice === "scissors" && computerChoice === "papper") {
+  else if (playerChoice === "scissors" && computerChoice === "paper") {
     scoreCounter.incrementComputerWins();
     return `You lose! ${computerChoice} beats ${playerChoice}`;
   }
@@ -89,15 +89,15 @@ function playRound(playerChoice, computerChoice, scoreCounter) {
     return `It's a tie!`; 
   }
 
-  else if (playerChoice === "papper" && computerChoice === "rock") {
+  else if (playerChoice === "paper" && computerChoice === "rock") {
     scoreCounter.incrementPlayerWins();
     return `You win! ${playerChoice} beats ${computerChoice}`;
   } 
-  else if (playerChoice === "papper" && computerChoice === "scissors") {
+  else if (playerChoice === "paper" && computerChoice === "scissors") {
     scoreCounter.incrementComputerWins();
     return `You lose! ${computerChoice} beats ${playerChoice}`;
   }
-  else if (playerChoice === "papper" && computerChoice === "papper") {
+  else if (playerChoice === "paper" && computerChoice === "paper") {
     return `It's a tie!`;
   } else {
     return `you missed an outcome! Player ${playerChoice} Computer ${computerChoice}`;
