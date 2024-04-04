@@ -1,22 +1,22 @@
-// function that prompts the user for a move selection and checks whether its a valid move.
-function getPlayerChoice() {
-  while (true) {
-    let userInput = prompt("Choose your move! <| Rock | Paper | Scissors |> what'll it be?");
-    userInput = userInput.toLowerCase();
+// // function that prompts the user for a move selection and checks whether its a valid move.
+// function getPlayerChoice() {
+//   while (true) {
+//     let userInput = prompt("Choose your move! <| Rock | Paper | Scissors |> what'll it be?");
+//     userInput = userInput.toLowerCase();
     
-    if (userInput === null) {
-      console.log("User cancelled the prompt.");
-      return null;
-    }
+//     if (userInput === null) {
+//       console.log("User cancelled the prompt.");
+//       return null;
+//     }
 
-    if (userInput !== "rock" && userInput !== "paper" && userInput !== "scissors") {
-      console.log("illegal move! please choose from one of the three");
-    } else {
-        console.log(userInput)
-        return userInput
-      }
-  }
-}
+//     if (userInput !== "rock" && userInput !== "paper" && userInput !== "scissors") {
+//       console.log("illegal move! please choose from one of the three");
+//     } else {
+//         console.log(userInput)
+//         return userInput
+//       }
+//   }
+// }
 
 function createScoreCounter() { // the robot helped me write this code
   let playerWins = 0;
@@ -104,15 +104,23 @@ function playRound(playerChoice, computerChoice, scoreCounter) {
   }
 }
 
-function playGame() { //the robot helped me fine-tune this one and figure out what I was doing wrong 
+function playGame() {
+  const gameButtons = document.querySelectorAll("#choices button");
+  console.log("Game buttons:", gameButtons);
+  
   const scoreCounter = createScoreCounter();
 
-  for (i=0; i < 5; i++) {
-    let roundResult = playRound(getPlayerChoice(),getComputerChoice(), scoreCounter);
-    console.log(roundResult);
-  }
-  console.log(scoreCounter.getScores());
-  console.log(scoreCounter.displayWinner())
+  gameButtons.forEach((button) => {
+    console.log("gameButtons function called");
+    button.addEventListener("click", () => {
+      console.log("Button clicked:", button.id);
+      const roundResult = playRound(button.id, getComputerChoice(), scoreCounter);
+      console.log(roundResult);
+      console.log(scoreCounter.getScores());
+      // console.log(scoreCounter.displayWinner())
+    });
+    });
 }
 
 playGame();
+
