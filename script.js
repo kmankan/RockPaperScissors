@@ -30,8 +30,12 @@ function createScoreCounter() { // the robot helped me write this code
     computerWins += 1;
   }
 
-  function getScores() {
-    return `Player ${playerWins} Computer ${computerWins}`;
+  function getPlayerScore() {
+    return playerWins;
+  }
+
+  function getComputerScore() {
+    return computerWins;
   }
 
   function displayWinner() {
@@ -47,7 +51,8 @@ function createScoreCounter() { // the robot helped me write this code
   return {
     incrementPlayerWins,
     incrementComputerWins,
-    getScores,
+    getPlayerScore,
+    getComputerScore,
     displayWinner
   };
 }
@@ -105,19 +110,70 @@ function playRound(playerChoice, computerChoice, scoreCounter) {
 }
 
 function playGame() {
-  const gameButtons = document.querySelectorAll("#choices button");
-  console.log("Game buttons:", gameButtons);
-  
-  const scoreCounter = createScoreCounter();
+  const scoreCounter = createScoreCounter(); //start the game counter
 
+  // Create scoreboard elements
+  const scoreboard = document.querySelector("#scoreboard");
+  
+  const playerScore = document.createElement("h3"); //create element in DOM to track player
+  playerScore.textContent = `Player: ${scoreCounter.getPlayerScore()}`; //add player score from ScoreCounter funciton
+  scoreboard.appendChild(playerScore); //append to the scoreboard div
+
+  const computerScore = document.createElement("h3"); //same as above for Computer
+  computerScore.textContent = `Computer: ${scoreCounter.getComputerScore()}`;
+  scoreboard.appendChild(computerScore)
+
+  // Create game announcements element
+  const announcement = document.querySelector("#announcement");
+  const gameAnnouncement = document.createElement("p");
+  gameAnnouncement.textContent = "Select your move to start the game";
+  announcement.appendChild(gameAnnouncement);
+
+  // Function that checks for win condition
+  const checkWinner = (player, computer) => {
+    switch (true) {
+      case player === 5:
+        gameAnnouncement.textContent = "Player Wins the Game! Congratulations!";
+        disableButtons();
+        return
+      case computer == 5:
+        gameAnnouncement.textContent = "Computer Wins the Game! Try your luck again";
+        disableButtons();
+        return
+      default:
+        return
+    } 
+  }; 
+
+  // Function that disables the game buttons after either player has won
+  const disableButtons = () => {
+    gameButtons.forEach((button) => {
+      button.disabled = true;
+    });
+  };
+
+  // Function that restarts the game
+  const resetGame = () => {
+    location.reload();
+  };
+
+  // Create a reset button element
+  const resetButton = document.querySelector("#reset button");
+  resetButton.addEventListener("click", resetGame);
+
+  //create a NodeList with all button ids
+  const gameButtons = document.querySelectorAll("#choices button"); 
+
+  //eventListener active for all buttons
+  //when button is pressed, take its id and pass it as the playerChoice to the playRound function
   gameButtons.forEach((button) => {
-    console.log("gameButtons function called");
     button.addEventListener("click", () => {
-      console.log("Button clicked:", button.id);
       const roundResult = playRound(button.id, getComputerChoice(), scoreCounter);
       console.log(roundResult);
-      console.log(scoreCounter.getScores());
-      // console.log(scoreCounter.displayWinner())
+      playerScore.textContent = `Player: ${scoreCounter.getPlayerScore()}`; //update playerScore in scoreboard div
+      computerScore.textContent = `Computer: ${scoreCounter.getComputerScore()}`; //update computerScore in scoreboard div
+      gameAnnouncement.textContent = roundResult //print the result of that match
+      checkWinner(scoreCounter.getPlayerScore(), scoreCounter.getComputerScore());
     });
     });
 }
