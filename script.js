@@ -1,22 +1,4 @@
-// // function that prompts the user for a move selection and checks whether its a valid move.
-// function getPlayerChoice() {
-//   while (true) {
-//     let userInput = prompt("Choose your move! <| Rock | Paper | Scissors |> what'll it be?");
-//     userInput = userInput.toLowerCase();
-    
-//     if (userInput === null) {
-//       console.log("User cancelled the prompt.");
-//       return null;
-//     }
-
-//     if (userInput !== "rock" && userInput !== "paper" && userInput !== "scissors") {
-//       console.log("illegal move! please choose from one of the three");
-//     } else {
-//         console.log(userInput)
-//         return userInput
-//       }
-//   }
-// }
+// Future refactoring: split playGame() function into multiple functions -- it is very bloated
 
 function createScoreCounter() { // the robot helped me write this code
   let playerWins = 0;
@@ -169,7 +151,6 @@ function playGame() {
   gameButtons.forEach((button) => {
     button.addEventListener("click", () => {
       const roundResult = playRound(button.id, getComputerChoice(), scoreCounter);
-      console.log(roundResult);
       playerScore.textContent = `Player: ${scoreCounter.getPlayerScore()}`; //update playerScore in scoreboard div
       computerScore.textContent = `Computer: ${scoreCounter.getComputerScore()}`; //update computerScore in scoreboard div
       gameAnnouncement.textContent = roundResult //print the result of that match
